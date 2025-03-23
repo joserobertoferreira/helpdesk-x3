@@ -50,7 +50,7 @@ class SageRouter:
     Router for the erp database.
     """
 
-    route_app_labels = {'partners'}
+    route_app_labels = {'contacts'}
 
     def db_for_read(self, model, **hints):
         """

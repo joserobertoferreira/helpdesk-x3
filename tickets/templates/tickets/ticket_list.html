@@ -1,0 +1,12 @@
+{% extends "global/base.html" %}
+
+lista de tickets
+
+{% block content %}
+    <h1>Lista de tickets</h1>
+    <ul>
+        {% for ticket in tickets %}
+            <li>{{ ticket.srenum_0 }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

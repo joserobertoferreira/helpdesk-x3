@@ -31,7 +31,12 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = []
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    'core.apps.CoreConfig',
+    'accounts.apps.AccountsConfig',
+    'contacts.apps.ContactsConfig',
+    'tickets.apps.TicketsConfig',
+]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -50,7 +55,7 @@ ROOT_URLCONF = 'setup.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'global_templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,12 +75,7 @@ WSGI_APPLICATION = 'setup.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {},
-    'auth_db': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
-    'sage': {
+    'default': {
         'ENGINE': 'mssql',
         'NAME': config('DB_DATABASE'),
         'USER': config('DB_USERNAME'),
@@ -92,10 +92,9 @@ DATABASES = {
 # set this to False if you want to turn off pyodbc's connection pooling
 DATABASE_CONNECTION_POOLING = False
 
-DATABASE_ROUTERS = ['setup.routers.AuthRouter', 'setup.routers.SageRouter']
+# Authentication settings
 
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+# AUTH_USER_MODEL = 'contacts.Contact'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -129,6 +128,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = (BASE_DIR / 'global_static',)
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
