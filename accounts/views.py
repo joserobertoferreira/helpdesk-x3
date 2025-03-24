@@ -1,13 +1,24 @@
-from django.contrib import messages
-from django.shortcuts import redirect, render
+from django.contrib.auth import login
+from django.contrib.auth.views import LoginView, LogoutView
+from django.views.generic.edit import FormView
 
 from accounts.forms import SignUpForm
 
 
-def signup(request):
-    form = SignUpForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        messages.success(request, 'Usuário criado com sucesso!')
-        return redirect('login')  # Redireciona para a página de login após o registro
-    return render(request, 'accounts/signup.html', {'form': form})
+class SigninView(LoginView):
+    template_name = 'accounts/login.html'
+
+
+class SignoutView(LogoutView):
+    next_page = '/'
+
+
+class SignupView(FormView):
+    template_name = 'accounts/register.html'
+    form_class = SignUpForm
+    success_url = ''
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return super().form_valid(form)

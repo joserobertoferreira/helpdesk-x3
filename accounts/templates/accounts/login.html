@@ -1,0 +1,42 @@
+{% extends 'global/base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'global/css/login.css' %}">
+{% endblock extra_css %}
+
+{% block login %}
+<div class="wrapper">
+  <div class="container main">
+    <div class="row">
+      <div class="col-md-6 side-image">
+        <img src="{% static 'global/assets/logo_gsconsulting.png' %}" alt="logo">              
+      </div>
+      <div class="col-md-6 right">
+        <div class="input-box">
+          <header>Help Desk</header>
+          <form method="post" action="{% url 'tickets:ticket_list' %}">
+            {% csrf_token %}
+            <div class="input-field">
+              {{ form.username|attr:"type:text"|attr:"class:input"|attr:"autocomplete:off" }}
+              <label for="username">Login</label> 
+            </div> 
+            <div class="input-field">
+              {{ form.password|attr:"type:password"|attr:"class:input"}}
+              <label for="pass">Palavra-passe</label>
+            </div> 
+            <div class="input-field">
+              <input type="submit" class="submit" value="Entrar">
+            </div> 
+          </form>
+          <div class="signin">
+            <span>Ainda não tem uma conta? <a href="#">Registe-se aqui</a></span>
+          </div>
+        </div>  
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock login %}
