@@ -12,7 +12,7 @@ make = "python manage.py makemigrations"
 app = "python manage.py startapp"
 
 [tool.ruff]
-line-length = 90
+line-length = 120
 extend-exclude = ['migrations']
 
 [tool.ruff.lint]

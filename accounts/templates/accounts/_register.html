@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock extra_css %}
+
+{% block login %}
+<div class="wrapper">
+  <div class="container main">
+    <div class="row">
+      <div class="col-md-6 side-image">
+        <img src="{% static 'assets/logo_gsconsulting.png' %}" alt="logo">              
+      </div>
+      <div class="col-md-6 right">
+        <div class="input-box">
+          <header>Registar</header>
+          <form method="post" action="">
+            {% csrf_token %}
+            {% for field in form %}
+              <div class="input-field">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field|attr:"type:text"|attr:"class:input"|attr:"autocomplete:off" }}
+              </div>
+            {% endfor %}
+            <div class="input-field">
+              <input type="submit" class="submit" value="Registar">
+            </div> 
+          </form>
+          <div class="signin">
+            <a href="{% url 'accounts:login' %}">Já possui uma conta?</a>
+          </div>
+        </div>  
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock login %}

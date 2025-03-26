@@ -1,10 +1,10 @@
-{% extends 'global/base.html' %}
+{% extends 'base.html' %}
 
 {% load static %}
 {% load widget_tweaks %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'global/css/login.css' %}">
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
 {% endblock extra_css %}
 
 {% block login %}
@@ -12,15 +12,22 @@
   <div class="container main">
     <div class="row">
       <div class="col-md-6 side-image">
-        <img src="{% static 'global/assets/logo_gsconsulting.png' %}" alt="logo">              
+        <img src="{% static 'assets/logo_gsconsulting.png' %}" alt="logo">              
       </div>
       <div class="col-md-6 right">
         <div class="input-box">
-          <header>Help Desk</header>
-          <form method="post" action="{% url 'tickets:ticket_list' %}">
+          <header>
+            Help Desk
+            {% if error %}
+              <div class="form-text text-danger py-3" style="font-size: 10px;">
+                {{ error }}
+              </div>
+            {% endif %}
+          </header>
+          <form method="post" action="">
             {% csrf_token %}
             <div class="input-field">
-              {{ form.username|attr:"type:text"|attr:"class:input"|attr:"autocomplete:off" }}
+              {{ form.username|attr:"type:text"|attr:"id:username"|attr:"class:input"|attr:"autocomplete:off" }}
               <label for="username">Login</label> 
             </div> 
             <div class="input-field">
@@ -32,7 +39,7 @@
             </div> 
           </form>
           <div class="signin">
-            <span>Ainda não tem uma conta? <a href="#">Registe-se aqui</a></span>
+            <span>Ainda não tem uma conta? <a href="{% url 'accounts:register' %}">Registe-se aqui</a></span>
           </div>
         </div>  
       </div>

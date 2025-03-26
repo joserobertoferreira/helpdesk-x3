@@ -2,5 +2,5 @@ from django.urls import resolve
 
 
 def app_name(request):
-    current_app = resolve(request.path_info).namespace
-    return {'current_app': current_app}
+    resolver = resolve(request.path_info)
+    return {'current_app': resolver.namespace, 'current_url': resolver.url_name}

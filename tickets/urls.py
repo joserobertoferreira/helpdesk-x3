@@ -4,5 +4,5 @@ from tickets.views import TicketListView
 
 app_name = 'tickets'
 urlpatterns = [
-    path('', TicketListView.as_view(), name='ticket_list'),
+    path('tickets', TicketListView.as_view(), name='ticket_list'),
 ]

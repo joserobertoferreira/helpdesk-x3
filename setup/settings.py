@@ -57,13 +57,13 @@ ROOT_URLCONF = 'setup.urls'
 # Assets Management
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
-STATICFILES_DIRS = (BASE_DIR / 'global_static',)
+# STATICFILES_DIRS = (BASE_DIR / 'static',)
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-ASSETS_DIR = os.path.join(BASE_DIR, 'global_static/global')
+ASSETS_DIR = os.path.join(BASE_DIR, 'static')
 
 ASSETS_ROOT = config('ASSETS_ROOT', ASSETS_DIR)
 
@@ -71,7 +71,7 @@ ASSETS_ROOT = config('ASSETS_ROOT', ASSETS_DIR)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'global_templates'],
+        'DIRS': [BASE_DIR / 'core/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -110,10 +110,19 @@ DATABASES = {
 # set this to False if you want to turn off pyodbc's connection pooling
 DATABASE_CONNECTION_POOLING = False
 
+# Cache settings
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'cache_table',
+    }
+}
+
 # Overwrite the default user model
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Authentication settings
+LOGIN_URL = 'accounts:login'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
